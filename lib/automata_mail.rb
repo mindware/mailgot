@@ -24,7 +24,7 @@ class AutomataMail < MiniSmtpServer
 
   def submit_data(data)
       begin
-         puts "Connecting to #{automata_url} to submit:\n#{data}"
+         puts "Connecting to #{automata_url} to submit:\n#{data}."
          RestClient.put automata_url(), data, {:content_type => :json}
       rescue Exception => e
         puts "Connection failed to #{automata_url}. Server unavailable: #{e.to_s}\n#{e.backtrace.join("\n")}"
@@ -34,6 +34,11 @@ class AutomataMail < MiniSmtpServer
   def automata_url
       puts "#{ENV["AUTOMATA_SERVER"]}#{ENV["AUTOMATA_TUBE"]}/"
       return "#{ENV["AUTOMATA_SERVER"]}#{ENV["AUTOMATA_TUBE"]}"
+  end
+
+  # customizable error method
+  def error(e)
+      puts e.to_s
   end
 
 end
